@@ -77,6 +77,7 @@ class ComicsController extends Controller
      */
     public function show(comics $comic)
     {
+
         $comics_list = config('comics');
 
         return view('comics.show', compact('comic'), $comics_list);

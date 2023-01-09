@@ -5,7 +5,7 @@
     </div>
     <div class="container ">
 
-        <img src="{{ Vite::asset('resources/images/dc-logo.png')}}" alt="">
+        <!-- <img src="{{ Vite::asset('resources/images/dc-logo.png')}}" alt=""> -->
 
         <div class="navbar">
             <a class="" href="">characters</a>
