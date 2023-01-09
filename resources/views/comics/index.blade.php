@@ -2,32 +2,7 @@
 
 @section('content')
 
-<section class="comics py-5">
-    <div class="container">
-        <h2 class="text-white">COMICS</h2>
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            @forelse($comics_list as $comic)
 
-            <div class="col">
-                <a href="{{route('comics.show', $comic->id)}}">
-
-                    <div class="card">
-                        <img src="{{$comic->thumb}}" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h6 class="fw-normal">{{$comic->title}}</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            @empty
-            <tr>
-                <td>Sorry, no comics found</td>
-            </tr>
-            @endforelse
-        </div>
-
-    </div>
-</section>
 <!-- 
 <div class="table-responsive">
     <table class="table table-striped
