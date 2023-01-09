@@ -27,18 +27,46 @@ class ComicsController extends Controller
      */
     public function create()
     {
-        //
+        $comics_list = config('comics');
+
+        return view('comics.create', $comics_list);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorecomicsRequest  $request
+     * @param  \App\Http\Requests\StoreComicRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StorecomicsRequest $request)
     {
-        //
+
+
+
+        $comic = [
+            'title' => $request['title'],
+            'description' => $request['description'],
+            'thumb' => $request['thumb'],
+            'price' => $request['price'],
+            'series' => $request['series'],
+            'sale_date' => $request['sale_date'],
+            'type' => $request['type']
+        ];
+
+
+        $newComic = new comics();
+        $newComic->title = $comic['title'];
+        $newComic->description = $comic['description'];
+        $newComic->thumb = $comic['thumb'];
+        $newComic->price = $comic['price'];
+        $newComic->series = $comic['series'];
+        $newComic->sale_date = $comic['sale_date'];
+        $newComic->type = $comic['type'];
+        $newComic->save();
+
+        // Comic::create($data);
+
+        return redirect()->route('comics.index');
     }
 
     /**
@@ -47,42 +75,52 @@ class ComicsController extends Controller
      * @param  \App\Models\comics  $comics
      * @return \Illuminate\Http\Response
      */
-    public function show(comics $comics)
+    public function show(comics $comic)
     {
-        //
+        $comics_list = config('comics');
+
+        return view('comics.show', compact('comic'), $comics_list);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\comics  $comics
+     * @param  \App\Models\comics $comic
      * @return \Illuminate\Http\Response
      */
-    public function edit(comics $comics)
+    public function edit(comics $comic)
     {
-        //
+        $comics_list = config('comics');
+
+        return view('comics.edit', compact('comic'), $comics_list);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdatecomicsRequest  $request
-     * @param  \App\Models\comics  $comics
+     * @param  \App\Models\comics  $comic
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatecomicsRequest $request, comics $comics)
+    public function update(UpdatecomicsRequest $request, comics $comic)
     {
-        //
+        $data = $request->all();
+
+        $comic->update($data);
+
+        return to_route('comics.index')->with('message', "$comic->title modified successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\comics  $comics
+     * @param  \App\Models\Comic  $comic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comics $comics)
+    public function destroy(comics $comic)
     {
-        //
+        $comic->delete();
+
+        return to_route('comics.index')->with('message', "$comic->title delete successfully");
     }
 }
